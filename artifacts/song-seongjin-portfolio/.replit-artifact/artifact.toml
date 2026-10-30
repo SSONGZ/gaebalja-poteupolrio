@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "송성진 개발자 포트폴리오"
+description = "A responsive, static developer portfolio for Song Seongjin, built with plain HTML, CSS, and JavaScript. It presents only the supplied skills and experiences, with clearly editable placeholders for missing project details and GitHub Pages deployment."
+version = "1.0.0"
+id = "artifacts/song-seongjin-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22986
+
+[services.development]
+run = "pnpm --filter @workspace/song-seongjin-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/song-seongjin-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/song-seongjin-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22986"
+BASE_PATH = "/"
